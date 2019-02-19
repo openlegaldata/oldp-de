@@ -8,5 +8,150 @@
 {% block wrap_content %}
     {% include 'homepage/banner.html' %}
 
+    <div class="masthead-followup row m-0 border border-white">
+        <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
+
+            <h3>API</h3>
+
+            <p class="text-justify">
+                Unsere REST API ermöglicht es dir alle Inhalte in maschinenlesbarer Form abzurufen.
+                In der Regel können alle API-Anfragen (z.b. Abrufen von Urteilen) ohne Anmeldung getätigt werden,
+                ansonsten ist ein API-Schlüssel notwendig. Um einen API-Schlüssel zu erhalten musst du dir einen Account
+                <a href="{% url 'account_signup' %}">registrieren</a>
+                und dich <a href="{% url 'account_api' %}">einloggen</a>.
+
+                Über verschiedene Endpoints kann auf Urteile, Gesetze u.v.m zugegriffen werden.
+
+                Um die API nutzen zu können, bieten wir eine Reihe von API-Clients in
+                <a href="http://github.com/openlegaldata/oldp-sdk-python">Python</a>,
+                <a href="http://github.com/openlegaldata/oldp-sdk-php">PHP</a>,
+                <a href="http://github.com/openlegaldata/oldp-sdk-java">Java</a> und
+                <a href="http://github.com/openlegaldata/oldp-sdk-javascript">Javascript</a> an.
+
+                Die <a href="{% url 'schema-redoc' %}">ausführliche Dokumentation</a> ist ein guter Start um sich mit den Features der API vertraut zu machen.
+
+                Zusätzlich möchten wir dir unsere <a href="https://github.com/openlegaldata/oldp-notebooks">Beispiele</a> ans Herz legen.
+            </p>
+
+            <p>
+                Fragen? Kommentare? Was für coole Sachen hast du mit der API gebaut?
+                <a href="{% url 'contact:form' %}">Schreib uns</a>.
+            </p>
+
+            <hr class="half-rule">
+
+            <a class="btn btn-outline-primary" href="{% url 'schema-swagger-ui' %}">{% trans 'Try it out!' %}</a>
+            <a class="btn btn-outline-primary" href="{% url 'flatpages' url='/api/' %}">{% trans 'Documentation' %}</a>
+            <a class="btn btn-outline-primary" href="https://github.com/openlegaldata/oldp-notebooks">{% trans 'Examples' %}</a>
+
+        </div>
+
+        <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
+
+            <h3>{% trans 'Latest Cases' %}</h3>
+
+            <table class="table table-hover table-sm">
+                {% for item in cases|slice:":8" %}
+                    <tr>
+                        <td><a href="{{ item.get_absolute_url }}">{{ item.get_title }}</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+            <p class="text-center">
+                <a class="btn btn-outline-primary" href="{% url 'cases:index' %}">{% blocktrans %}Show all {{ cases_count }} cases ...{% endblocktrans %}</a>
+            </p>
+
+
+        </div>
+
+        <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
+
+            <h3>Mitmachen</h3>
+
+            <p class="text-justify">
+
+                Dieses Projekt wird von Freiwilligen ehrenamtlich in der Freizeit betrieben. Deshalb sind wir auf
+                Deine Unterstützung angewiesen. Wir suchen ständig Aktivisten, Entwickler, Juristen, Journalisten, Analysten und
+                vor allem motivierte Mitstreiter*innen. Du hast Lust den Rechtstaat gemeinsam mit uns und offnen Daten
+                etwas transparenter zu machen? Dann schreibe uns eine <a href="/contact/">Nachricht</a>, sende uns Gerichtsentscheidungen,
+                nutze unsere Daten, melde <a href="https://github.com/openlegaldata/oldp/issues">Bugs</a> oder arbeite mit an neuen Features.
+
+            </p>
+            <p class="text-justify">
+                Der Quellcode der Plattform und ein Python SDK ist bereits unter freier MIT Lizenz auf <a href="https://github.com/openlegaldata/oldp">GitHub</a>
+                veröffentlicht. Also - nicht nur zu gucken, sondern Mitmachen!
+            </p>
+
+            <hr class="half-rule">
+
+            <a class="btn btn-outline-primary" href="{{ site_twitter_url }}">Twitter</a>
+            <a class="btn btn-outline-primary" href="{{ site_github_url }}">GitHub</a>
+            <a class="btn btn-outline-primary" href="{% url 'contact:form' %}">{% trans 'Contact' %}</a>
+
+
+        </div>
+
+
+    </div>
+
+
+    <div class="masthead-followup row m-0 border border-white">
+        <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
+
+            <h3>Über das Projekt</h3>
+
+            <p class="text-justify">
+                Open Legal Data ist ein nicht-gewinnorientiertes Projekt zur Förderung des freien Zugang zu juristischen Daten.
+                Unser Hauptanliegen ist es technische Mittel zur Verarbeitung und Analyse von juristischen Inhalten,
+                    insbesondere Rechtsprechung und Rechtsnormen, zur Verfügung zu stellen.
+                Durch das Zugänglichmachen mit Hilfe von <a href="/pages/api/">APIs</a> oder
+                    das Veröffentlichen von Datensätzen soll der Umgang mit Rechtsthemen für juristische Laien erleichtert werden.
+                Mit unserer Plattform richten wir uns in erster Linie an technisch versiert AktivistenInnen, JournalistenInnen und WissenschaftlerInnen.
+            </p>
+            <p class="text-jusity">
+                Open Legal Data verpflichtet sich mit diesem Projekt den Prinzipien der <a href="https://opendefinition.org/od/2.1/en/">Open Data Bewegung</a>
+                und der Erklärung des <a href="http://www.fatlm.org/declaration/">Free Access To Law Movements</a>.
+                Auf unserer <a href="//openlegaldata.io/about">englischen Seite</a> findet ihr weitere Informationen über das Projekt.
+            </p>
+
+        </div>
+        <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
+
+            <h3>{% trans 'Laws' %}</h3>
+
+            <table class="table table-hover table-sm">
+                {% for item in law_books|slice:":8" %}
+                    <tr>
+                        <td><a href="{{ item.get_absolute_url }}">{{ item.code }} - {{ item.get_title }}</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+            <p class="text-center">
+                <a class="btn btn-outline-primary" href="{% url 'laws:index' %}">{% blocktrans %}Show all {{ laws_count }} laws ...{% endblocktrans %}</a>
+            </p>
+
+        </div>
+        <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
+
+            <h3>Team</h3>
+
+            <p class="text-justify">
+                Unsere Initiative besteht aus einem Team von ehrenamtlichen Informatikern und Juristen.
+                Die Teammitglieder sind deutschlandweit verteilt und setzen sich in der Freizeit dafür ein,
+                die Rechtsprechung transparenter und verständlicher zu machen.
+                Dazu haben wir vor einem Jahr die Plattform und Initiative Open Legal Data ins Leben gerufen.
+
+            </p>
+
+            <p class="text-justify">
+                Kontaktmöglichkeiten zu unseren einzelnen Mitgliedern findest du auf unserer <a href="https://openlegaldata.io/team/">Teamseite</a>.
+
+            </p>
+
+        </div>
+    </div>
+
 
 {% endblock %}
