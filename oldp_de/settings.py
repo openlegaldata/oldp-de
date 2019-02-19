@@ -7,6 +7,7 @@ from oldp.settings import Base, Dev, Prod
 
 importer.install()
 
+# TODO path does not work if installed as package
 DE_BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -29,9 +30,8 @@ class BaseDE(Base):
 
 
 class DevDE(BaseDE, Dev):
-    # DEBUG = True
-    pass
+    DEBUG = True
+
 
 class ProdDE(BaseDE, Prod):
-    # DEBUG = False
-    pass
+    DEBUG = False
