@@ -1,9 +1,6 @@
 {% load static %}
 {% load i18n %}
-
-{#<button type="button" id="feedback-btn" class="btn btn-info vertical-right-aligned">#}
-{#    Feedback <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>#}
-{#</button>#}
+{% load contact %}
 
 {% block footer %}
 
@@ -14,11 +11,9 @@
                 <li><a href="{% url 'contact:form' %}">{% trans 'Contact' %}</a></li>
                 <li><a href="{% url 'flatpages' url='/imprint/' %}">{% trans 'Imprint' %}</a></li>
                 <li><a href="{% url 'flatpages' url='/privacy/' %}">{% trans 'Privacy' %}</a></li>
+                <li><a href="{% report_content_url %}" rel="nofollow">{% trans 'Report content' %}</a></li>
                 <li><a href="{% url 'flatpages' url='/api/' %}">API</a></li>
-
-
                 <li><a href="//openlegaldata.io/about">Über uns (Englisch)</a></li>
-
                 <li><a href="{{ site_blog_url }}">Blog</a></li>
 
                 <li><a href="//openlegaldata.io"><i class="fa fa-globe"></i> International</a></li>
