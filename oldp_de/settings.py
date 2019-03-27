@@ -5,6 +5,8 @@ from configurations import values
 
 from oldp.settings import Base, Dev, Prod
 
+from oldp_de.courts_de.apps import CourtTypesDE
+
 importer.install()
 
 # TODO path does not work if installed as package
@@ -19,6 +21,25 @@ class BaseDE(Base):
     - You can also add Germany-specific apps or processing steps.
 
     """
+
+    COURT_JURISDICTIONS = {  # name: regex
+        'Arbeitsgerichtsbarkeit': 'arbeitsgericht',
+        'Sozialgerichtsbarkeit': 'sozialgericht',
+        'Ordentliche Gerichtsbarkeit': 'amtsgericht|landgericht|schifffahrtsgericht|dienstgericht|patentgericht',
+        'Berufsgerichtsbarkeit': 'berufsgericht',
+        'Finanzgerichtsbarkeit': 'finanzgericht',
+        'Verwaltungsgerichtsbarkeit': 'verwaltungsgericht',
+        'Verfassungsgerichtsbarkeit': 'verfassungsgericht|staatsgerichtshof'
+    }
+
+    COURT_LEVELS_OF_APPEAL = {  # name: regex
+        'Amtsgericht': 'amtsgericht',
+        'Oberlandesgericht': 'oberlandesgericht|oberstes landes',
+        'Landgericht': 'landgericht',
+        'Bundesgericht': 'bund',
+    }
+
+    COURT_TYPES = CourtTypesDE()
 
     @classmethod
     def post_setup(cls):
