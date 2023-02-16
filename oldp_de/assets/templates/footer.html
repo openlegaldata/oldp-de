@@ -4,37 +4,37 @@
 
 {% block footer %}
 
-    <footer class="bd-footer text-muted">
-        <div class="container-fluid p-3 p-md-5">
-            <ul class="bd-footer-links">
+<footer class="bd-footer text-muted">
+    <div class="container-fluid p-3 p-md-5">
+        <ul class="bd-footer-links">
 
-                <li><a href="{% url 'contact:form' %}">{% trans 'Contact' %}</a></li>
-                <li><a href="{% url 'flatpages' url='/imprint/' %}">{% trans 'Imprint' %}</a></li>
-                <li><a href="{% url 'flatpages' url='/privacy/' %}">{% trans 'Privacy' %}</a></li>
-                <li><a href="{% report_content_url %}" rel="nofollow">{% trans 'Report content' %}</a></li>
-                <li><a href="{% url 'flatpages' url='/api/' %}">API</a></li>
-                <li><a href="//openlegaldata.io/about">Über uns (Englisch)</a></li>
-                <li><a href="{{ site_blog_url }}">Blog</a></li>
+            <li><a href="{% url 'contact:form' %}">{% trans 'Contact' %}</a></li>
+            <li><a href="{% url 'flatpages' url='/imprint/' %}">{% trans 'Imprint' %}</a></li>
+            <li><a href="{% url 'flatpages' url='/privacy/' %}">{% trans 'Privacy' %}</a></li>
+            <li><a href="{% report_content_url %}" rel="nofollow">{% trans 'Report content' %}</a></li>
+            <li><a href="{% url 'flatpages' url='/api/' %}">API</a></li>
+            <li><a href="//openlegaldata.io/about">Über uns (Englisch)</a></li>
+            <li><a href="{{ site_blog_url }}">Blog</a></li>
 
-                <li><a href="//openlegaldata.io"><i class="fa fa-globe"></i> International</a></li>
-                <li><a href="{{ site_twitter_url }}"><i class="fa fa-twitter" aria-hidden="true"></i> Twitter</a></li>
-                <li><a href="{{ site_github_url }}"><i class="fa fa-github" aria-hidden="true"></i> GitHub</a></li>
+            <li><a href="//openlegaldata.io"><i class="fa fa-globe"></i> International</a></li>
+            <li><a href="{{ site_twitter_url }}"><i class="fa fa-twitter" aria-hidden="true"></i> Twitter</a></li>
+            <li><a href="{{ site_github_url }}"><i class="fa fa-github" aria-hidden="true"></i> GitHub</a></li>
 
-            </ul>
+        </ul>
 
-            <div class="funded-by">
+        <div class="funded-by">
+            <small>Research Partners:</small>
+            <a href="https://www.dfki.de/web/forschung/forschungsbereiche/speech-and-language-technology">
+                <img src="{% static 'images/dfki.png' %}" alt="German Research Center for Artificial Intelligence"
+                    style="height: 50px">
+            </a>
 
-                <a href="https://www.isg.uni-konstanz.de/">
-                    <img src="{% static 'images/uni_konstanz.png' %}" alt="Forschungspartner Universität Konstanz - Information Science Group">
-                </a>
+            <a href="https://okfn.de/" target="_blank">
+                <img src="{% static 'images/funded_by/logo-okfn.svg' %}" alt="Open Knowledge Foundation Germany">
+            </a>
 
-                <a href="https://okfn.de/" target="_blank">
-                    <img src="{% static 'images/funded_by/logo-okfn.svg' %}" alt="Open Knowledge Foundation Germany">
-                </a>
-
-            </div>
         </div>
-    </footer>
+    </div>
+</footer>
 
 {% endblock %}
-
