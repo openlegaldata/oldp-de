@@ -32,7 +32,7 @@ setup(
     description='German Theme for Open Legal Data Platform',
     long_description=read('README.md'),
     long_description_content_type='text/markdown',
-    author='Malte Schwarzer',
+    author='Malte Ostendorff',
     author_email='hello@openlegaldata.io',
     packages=find_packages(),
     install_requires=[
@@ -41,7 +41,13 @@ setup(
     ],
     dependency_links=[
     ],
-    include_package_data=True,
+    include_package_data=True,  # Include files as specified in package_data
+    package_data={
+        # Specify which files to include from which package
+        'oldp_de': ['assets/**/*'],
+    },
+    # include_package_data=True,
+    # package_data={'oldp_de': ['*.png']},
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Framework :: Django',
@@ -52,6 +58,6 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Topic :: Utilities',
     ],
-    zip_safe=False,
+    # zip_safe=False,
 )
 
