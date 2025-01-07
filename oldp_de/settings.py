@@ -3,7 +3,7 @@ import os
 from configurations import importer
 from configurations import values
 
-from oldp.settings import Base, Dev, Prod
+from oldp.settings import BaseConfiguration, DevConfiguration, ProdConfiguration
 
 from oldp_de.courts_de.apps import CourtTypesDE
 
@@ -13,7 +13,7 @@ importer.install()
 DE_BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-class BaseDE(Base):
+class BaseDEConfiguration(BaseConfiguration):
     """
     Settings for the German OLDP Theme
 
@@ -41,6 +41,8 @@ class BaseDE(Base):
 
     COURT_TYPES = CourtTypesDE()
 
+    LANGUAGE_CODE = 'de'
+
     @classmethod
     def post_setup(cls):
         super().post_setup()
@@ -50,9 +52,11 @@ class BaseDE(Base):
         cls.STATICFILES_DIRS.insert(0, os.path.join(DE_BASE_DIR, 'oldp_de/assets/static'))
 
 
-class DevDE(BaseDE, Dev):
+class DevDEConfiguration(BaseDEConfiguration, DevConfiguration):
     DEBUG = True
 
 
-class ProdDE(BaseDE, Prod):
+class ProdDEConfiguration(BaseDEConfiguration, ProdConfiguration):
     DEBUG = False
+
+    ALLOWED_HOSTS = values.ListValue(['de.openlegaldata.io', 'localhost'])
