@@ -101,19 +101,6 @@ test.db
 
 # Django
 #*/migrations/*
-oldp/assets/static-global/images/imprint.png
-oldp/assets/html_pages/
-oldp/assets/static/*
-oldp/settings/*private.py
 media/*
 !media/README.md
-
-# Project-related
-workingdir/*
-!workingdir/README.md
-
-logs/*
-!logs/README.md
-
-oldp/assets/webpack-stats.json
 

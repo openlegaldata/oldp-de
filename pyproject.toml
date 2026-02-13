@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "oldp-de"
+version = "0.1.0"
+description = "German Theme for Open Legal Data Platform"
+readme = "README.md"
+authors = [
+    { name = "Malte Ostendorff", email = "hello@openlegaldata.io" },
+]
+license = "MIT"
+requires-python = ">=3.11"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Framework :: Django",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "django>=5.0",
+    "django-configurations",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-django>=4.5",
+]
+
+[project.urls]
+Homepage = "https://de.openlegaldata.io"
+Repository = "https://github.com/openlegaldata/oldp-de"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["oldp_de*"]
+
+[tool.setuptools.package-data]
+oldp_de = [
+    "assets/**/*",
+    "courts_de/data/*.csv",
+]

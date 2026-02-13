@@ -2,7 +2,7 @@ from django.apps import AppConfig
 from oldp.apps.courts.apps import CourtTypes, CourtLocationLevel
 
 class CourtsDEConfig(AppConfig):
-    name = 'oldp_de.apps.courts_de'
+    name = 'oldp_de.courts_de'
 
 
 class CourtTypesDE(CourtTypes):

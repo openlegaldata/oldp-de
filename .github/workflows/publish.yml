@@ -1,0 +1,95 @@
+name: Publish to PyPI
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump_type:
+        description: "Version bump type"
+        required: true
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: pypi
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install tomli tomli_w build
+
+      - name: Bump version
+        id: bump
+        run: |
+          python - <<'PYEOF'
+          import tomli, tomli_w, re
+          from pathlib import Path
+
+          bump_type = "${{ inputs.bump_type }}"
+
+          # Read current version from pyproject.toml
+          pyproject_path = Path("pyproject.toml")
+          with open(pyproject_path, "rb") as f:
+              data = tomli.load(f)
+
+          current = data["project"]["version"]
+          major, minor, patch = (int(x) for x in current.split("."))
+
+          if bump_type == "major":
+              major, minor, patch = major + 1, 0, 0
+          elif bump_type == "minor":
+              minor, patch = minor + 1, 0
+          else:
+              patch += 1
+
+          new_version = f"{major}.{minor}.{patch}"
+
+          # Update pyproject.toml
+          data["project"]["version"] = new_version
+          with open(pyproject_path, "wb") as f:
+              tomli_w.dump(data, f)
+
+          # Update __init__.py
+          init_path = Path("src/oldp_de/__init__.py")
+          content = init_path.read_text()
+          content = re.sub(
+              r"__version__\s*=\s*['\"].*?['\"]",
+              f"__version__ = '{new_version}'",
+              content,
+          )
+          init_path.write_text(content)
+
+          # Write output
+          with open("$GITHUB_OUTPUT", "a") as f:
+              f.write(f"version={new_version}\n")
+
+          print(f"Bumped version: {current} -> {new_version}")
+          PYEOF
+
+      - name: Commit and tag
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add pyproject.toml src/oldp_de/__init__.py
+          git commit -m "Bump version to ${{ steps.bump.outputs.version }}"
+          git tag "v${{ steps.bump.outputs.version }}"
+          git push && git push --tags
+
+      - name: Build package
+        run: python -m build
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1

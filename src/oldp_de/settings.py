@@ -1,4 +1,4 @@
-import os
+from pathlib import Path
 
 from configurations import importer
 from configurations import values
@@ -9,8 +9,7 @@ from oldp_de.courts_de.apps import CourtTypesDE
 
 importer.install()
 
-# TODO path does not work if installed as package
-DE_BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_PACKAGE_DIR = Path(__file__).resolve().parent
 
 
 class BaseDEConfiguration(BaseConfiguration):
@@ -47,13 +46,16 @@ class BaseDEConfiguration(BaseConfiguration):
     def post_setup(cls):
         super().post_setup()
 
-        # Add oldp_de templates in the begging of list
-        cls.TEMPLATES[0]['DIRS'].insert(0, os.path.join(DE_BASE_DIR, 'oldp_de/assets/templates'))
-        cls.STATICFILES_DIRS.insert(0, os.path.join(DE_BASE_DIR, 'oldp_de/assets/static'))
+        # Add oldp_de templates at the beginning of list
+        cls.TEMPLATES[0]['DIRS'].insert(0, str(_PACKAGE_DIR / 'assets' / 'templates'))
+        cls.STATICFILES_DIRS.insert(0, str(_PACKAGE_DIR / 'assets' / 'static'))
 
 
 class DevDEConfiguration(BaseDEConfiguration, DevConfiguration):
     DEBUG = True
+
+    INSTALLED_APPS = DevConfiguration.INSTALLED_APPS
+    MIDDLEWARE = DevConfiguration.MIDDLEWARE
 
 
 class ProdDEConfiguration(BaseDEConfiguration, ProdConfiguration):
