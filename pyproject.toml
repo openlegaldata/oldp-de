@@ -1,10 +1,12 @@
 [build-system]
-requires = ["setuptools>=68.0"]
+requires = [
+    "setuptools>=68.0",
+]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "oldp-de"
-version = "0.1.0"
+version = "0.1.1"
 description = "German Theme for Open Legal Data Platform"
 readme = "README.md"
 authors = [
@@ -36,8 +38,12 @@ Homepage = "https://de.openlegaldata.io"
 Repository = "https://github.com/openlegaldata/oldp-de"
 
 [tool.setuptools.packages.find]
-where = ["src"]
-include = ["oldp_de*"]
+where = [
+    "src",
+]
+include = [
+    "oldp_de*",
+]
 
 [tool.setuptools.package-data]
 oldp_de = [
