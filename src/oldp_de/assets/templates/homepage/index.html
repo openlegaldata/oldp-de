@@ -22,13 +22,7 @@
 
                 Über verschiedene Endpoints kann auf Urteile, Gesetze u.v.m zugegriffen werden.
 
-                Um die API nutzen zu können, bieten wir eine Reihe von API-Clients in
-                <a href="http://github.com/openlegaldata/oldp-sdk-python">Python</a>,
-                <a href="http://github.com/openlegaldata/oldp-sdk-php">PHP</a>,
-                <a href="http://github.com/openlegaldata/oldp-sdk-java">Java</a> und
-                <a href="http://github.com/openlegaldata/oldp-sdk-javascript">Javascript</a> an.
-
-                Die <a href="{% url 'schema-redoc' %}">ausführliche Dokumentation</a> ist ein guter Start um sich mit den Features der API vertraut zu machen.
+                Die <a href="{% url 'schema-redoc' %}">Dokumentation</a> ist ein guter Start um sich mit den Features der API vertraut zu machen.
 
                 Zusätzlich möchten wir dir unsere <a href="https://github.com/openlegaldata/oldp-notebooks">Beispiele</a> ans Herz legen.
             </p>
@@ -79,13 +73,13 @@
 
             </p>
             <p class="text-justify">
-                Der Quellcode der Plattform und ein Python SDK ist bereits unter freier MIT Lizenz auf <a href="https://github.com/openlegaldata/oldp">GitHub</a>
+                Der Quellcode der Plattform ist unter freier MIT Lizenz auf <a href="https://github.com/openlegaldata/oldp">GitHub</a>
                 veröffentlicht. Also - nicht nur zu gucken, sondern Mitmachen!
             </p>
 
             <hr class="half-rule">
 
-            <a class="btn btn-outline-primary" href="{{ site_twitter_url }}">Twitter</a>
+            <a class="btn btn-outline-primary" href="{{ site_discord_url }}">Discord</a>
             <a class="btn btn-outline-primary" href="{{ site_github_url }}">GitHub</a>
             <a class="btn btn-outline-primary" href="{% url 'contact:form' %}">{% trans 'Contact' %}</a>
 
@@ -135,20 +129,22 @@
         </div>
         <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
 
-            <h3>Team</h3>
+            <h3>Data Dumps</h3>
 
             <p class="text-justify">
-                Unsere Initiative besteht aus einem Team von ehrenamtlichen Informatikern und Juristen.
-                Die Teammitglieder sind deutschlandweit verteilt und setzen sich in der Freizeit dafür ein,
-                die Rechtsprechung transparenter und verständlicher zu machen.
-                Dazu haben wir vor einem Jahr die Plattform und Initiative Open Legal Data ins Leben gerufen.
-
+                Für die Analyse und wissenschaftliche Nutzung bieten wir alle Daten auch als sogenannten Data Dump oder Bulk Download an, d.h., es können alle Inhalten als Datensatz heruntergelanden werden ohne jedes Dokument einzeln anzufragen.
+                Diese Data Dumps können <a href="https://static.openlegaldata.io/dumps/de/">hier</a> oder über <a href="https://huggingface.co/openlegaldata">Huggingface</a> geladen werden.
             </p>
 
             <p class="text-justify">
-                Kontaktmöglichkeiten zu unseren einzelnen Mitgliedern findest du auf unserer <a href="https://openlegaldata.io/team/">Teamseite</a>.
-
+                Zum Erstellen und Verarbeiten der Data Dumps gibt es das <a href="https://github.com/openlegaldata/oldp-toolkit">OLDP Toolkit</a>.
             </p>
+                            
+            <hr class="half-rule">
+
+            <a class="btn btn-outline-primary" href="https://huggingface.co/datasets/openlegaldata/court-decisions-germany">Urteile auf Huggingface</a>
+            <a class="btn btn-outline-primary" href="https://huggingface.co/datasets/openlegaldata/legal-citation-graph">Citation Graph auf Huggingface</a>
+            
 
         </div>
     </div>
