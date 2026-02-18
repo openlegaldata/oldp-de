@@ -35,7 +35,7 @@ jobs:
         id: bump
         run: |
           python - <<'PYEOF'
-          import tomli, tomli_w, re
+          import tomli, tomli_w, re, os
           from pathlib import Path
 
           bump_type = "${{ inputs.bump_type }}"
@@ -73,7 +73,7 @@ jobs:
           init_path.write_text(content)
 
           # Write output
-          with open("$GITHUB_OUTPUT", "a") as f:
+          with open(os.environ["GITHUB_OUTPUT"], "a") as f:
               f.write(f"version={new_version}\n")
 
           print(f"Bumped version: {current} -> {new_version}")
