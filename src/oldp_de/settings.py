@@ -42,6 +42,10 @@ class BaseDEConfiguration(BaseConfiguration):
 
     LANGUAGE_CODE = 'de'
 
+    # German legal/info pages (Impressum, Datenschutz, AGB) served as markdown
+    # at /pages/<slug>/ by oldp.apps.pages. Overrides the base placeholder dir.
+    MARKDOWN_PAGES_DIR = str(_PACKAGE_DIR / 'content' / 'pages')
+
     @classmethod
     def post_setup(cls):
         super().post_setup()
