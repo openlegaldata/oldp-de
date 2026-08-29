@@ -42,6 +42,12 @@ class BaseDEConfiguration(BaseConfiguration):
 
     LANGUAGE_CODE = 'de'
 
+    # German legal/info pages (Impressum, Datenschutz, AGB) served as markdown
+    # at /pages/<slug>/ by oldp.apps.pages. Overrides the base placeholder dir;
+    # a DJANGO_MARKDOWN_PAGES_DIR env var still wins (e.g. to load the texts from
+    # a private deployment repo mounted into the container).
+    MARKDOWN_PAGES_DIR = values.Value(str(_PACKAGE_DIR / 'content' / 'pages'))
+
     @classmethod
     def post_setup(cls):
         super().post_setup()
