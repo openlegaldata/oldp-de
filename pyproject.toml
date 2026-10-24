@@ -48,5 +48,6 @@ include = [
 [tool.setuptools.package-data]
 oldp_de = [
     "assets/**/*",
+    "content/**/*",
     "courts_de/data/*.csv",
 ]
