@@ -4,43 +4,58 @@
 {% load i18n %}
 {% load search %}
 
+{% comment %}
+Layout of the info boxes below the banner:
+- Three columns from lg (>= 992px) up, stacked full width below. At md
+  (tablet) three columns are too narrow for the text and buttons.
+- Each box is a flex column; its button group (.homepage-actions) is pushed to
+  the bottom with mt-auto, so the buttons of one row line up on desktop.
+- Buttons are spaced with mr-2 mb-2 (Bootstrap 4 has no gap utility) so they
+  wrap cleanly instead of touching; the group cancels the trailing margins with mr-n2 mb-n2, so the last
+  button in a line does not force an early wrap.
+- "View all" buttons are centred under the lists only in the 3-column layout.
+The API, MCP and dataset details live on /pages/api/; this page only links there.
+{% endcomment %}
 
 {% block wrap_content %}
     {% include 'homepage/banner.html' %}
 
+    {% url 'markdown_page' slug='api' as api_page_url %}
+
     <div class="masthead-followup row m-0 border border-white">
-        <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
+        <div class="col-12 col-lg-4 p-4 p-lg-5 bg-light border border-white d-flex flex-column">
 
-            <h3>API</h3>
+            <h3>API &amp; MCP</h3>
 
-            <p class="text-justify">
-                Unsere REST API ermöglicht es dir alle Inhalte in maschinenlesbarer Form abzurufen.
-                In der Regel können alle API-Anfragen (z.b. Abrufen von Urteilen) ohne Anmeldung getätigt werden,
-                ansonsten ist ein API-Schlüssel notwendig. Um einen API-Schlüssel zu erhalten musst du dir einen Account
-                <a href="{% url 'account_signup' %}">registrieren</a>
-                und dich <a href="{% url 'account_api' %}">einloggen</a>.
-
-                Über verschiedene Endpoints kann auf Urteile, Gesetze u.v.m zugegriffen werden.
-
-                Die <a href="{% url 'schema-redoc' %}">Dokumentation</a> ist ein guter Start um sich mit den Features der API vertraut zu machen.
-
-                Zusätzlich möchten wir dir unsere <a href="https://github.com/openlegaldata/oldp-notebooks">Beispiele</a> ans Herz legen.
+            <p>
+                Alle Urteile und Gesetze sind auch maschinenlesbar abrufbar: über unsere
+                <a href="{{ api_page_url }}#rest">REST API</a> für eigene Apps und Skripte und über unseren
+                <a href="{{ api_page_url }}#mcp">MCP-Server</a>, der KI-Assistenten wie Claude oder ChatGPT
+                direkt mit unseren Daten verbindet.
             </p>
 
             <p>
-                Fragen? Kommentare? Was für coole Sachen hast du mit der API gebaut?
+                Beides funktioniert ohne Anmeldung. Mit einem kostenlosen
+                <a href="{% url 'account_signup' %}">Account</a> gilt ein deutlich höheres Limit.
+            </p>
+
+            <p>
+                Fragen? Was hast du mit unseren Daten gebaut?
                 <a href="{% url 'contact:form' %}">Schreib uns</a>.
             </p>
 
-            <hr class="half-rule">
-
-            <a class="btn btn-outline-primary" href="{% url 'schema-swagger-ui' %}">{% trans 'Try it out!' %}</a>
-            <a class="btn btn-outline-primary" href="{% url 'flatpages' url='/api/' %}">{% trans 'Documentation' %}</a>
-            <a class="btn btn-outline-primary" href="https://github.com/openlegaldata/oldp-notebooks">{% trans 'Examples' %}</a>
+            <div class="homepage-actions mt-auto">
+                <hr class="half-rule">
+                <div class="d-flex flex-wrap mr-n2 mb-n2">
+                    <a class="btn btn-outline-primary mr-2 mb-2" href="{{ api_page_url }}#rest">REST API</a>
+                    <a class="btn btn-outline-primary mr-2 mb-2" href="{{ api_page_url }}#mcp">MCP verbinden</a>
+                    <a class="btn btn-outline-primary mr-2 mb-2" href="{% url 'schema-swagger-ui' %}">{% trans 'Try it out!' %}</a>
+                </div>
+            </div>
 
         </div>
 
-        <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
+        <div class="col-12 col-lg-4 p-4 p-lg-5 bg-light border border-white d-flex flex-column">
 
             <h3>{% trans 'Latest Cases' %}</h3>
 
@@ -52,65 +67,70 @@
                 {% endfor %}
             </table>
 
-            <p class="text-center">
-                <a class="btn btn-outline-primary" href="{% url 'cases:index' %}">{% trans "View all cases" %}</a>
-            </p>
-
+            <div class="homepage-actions mt-auto">
+                <div class="d-flex flex-wrap justify-content-lg-center mb-n2">
+                    <a class="btn btn-outline-primary mb-2" href="{% url 'cases:index' %}">{% trans "View all cases" %}</a>
+                </div>
+            </div>
 
         </div>
 
-        <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
+        <div class="col-12 col-lg-4 p-4 p-lg-5 bg-light border border-white d-flex flex-column">
 
             <h3>Mitmachen</h3>
 
-            <p class="text-justify">
-
+            <p>
                 Dieses Projekt wird von Freiwilligen ehrenamtlich in der Freizeit betrieben. Deshalb sind wir auf
-                Deine Unterstützung angewiesen. Wir suchen ständig Aktivisten, Entwickler, Juristen, Journalisten, Analysten und
-                vor allem motivierte Mitstreiter*innen. Du hast Lust den Rechtstaat gemeinsam mit uns und offnen Daten
-                etwas transparenter zu machen? Dann schreibe uns eine <a href="/contact/">Nachricht</a>, sende uns Gerichtsentscheidungen,
-                nutze unsere Daten, melde <a href="https://github.com/openlegaldata/oldp/issues">Bugs</a> oder arbeite mit an neuen Features.
-
+                deine Unterstützung angewiesen. Wir suchen ständig Aktivist*innen, Entwickler*innen, Jurist*innen,
+                Journalist*innen, Analyst*innen und vor allem motivierte Mitstreiter*innen. Du hast Lust, den Rechtsstaat
+                gemeinsam mit uns und offenen Daten etwas transparenter zu machen? Dann schreib uns eine
+                <a href="{% url 'contact:form' %}">Nachricht</a>, sende uns Gerichtsentscheidungen,
+                nutze unsere Daten, melde <a href="https://github.com/openlegaldata/oldp/issues">Bugs</a>
+                oder arbeite mit an neuen Features.
             </p>
-            <p class="text-justify">
-                Der Quellcode der Plattform ist unter freier MIT Lizenz auf <a href="https://github.com/openlegaldata/oldp">GitHub</a>
-                veröffentlicht. Also - nicht nur zu gucken, sondern Mitmachen!
+            <p>
+                Der Quellcode der Plattform ist unter der freien MIT-Lizenz auf
+                <a href="https://github.com/openlegaldata/oldp">GitHub</a> veröffentlicht.
+                Also: nicht nur zugucken, sondern mitmachen!
             </p>
 
-            <hr class="half-rule">
-
-            <a class="btn btn-outline-primary" href="{{ site_discord_url }}">Discord</a>
-            <a class="btn btn-outline-primary" href="{{ site_github_url }}">GitHub</a>
-            <a class="btn btn-outline-primary" href="{% url 'contact:form' %}">{% trans 'Contact' %}</a>
-
+            <div class="homepage-actions mt-auto">
+                <hr class="half-rule">
+                <div class="d-flex flex-wrap mr-n2 mb-n2">
+                    <a class="btn btn-outline-primary mr-2 mb-2" href="{{ site_discord_url }}">Discord</a>
+                    <a class="btn btn-outline-primary mr-2 mb-2" href="{{ site_github_url }}">GitHub</a>
+                    <a class="btn btn-outline-primary mr-2 mb-2" href="{% url 'contact:form' %}">{% trans 'Contact' %}</a>
+                </div>
+            </div>
 
         </div>
-
-
     </div>
 
 
     <div class="masthead-followup row m-0 border border-white">
-        <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
+        <div class="col-12 col-lg-4 p-4 p-lg-5 bg-light border border-white d-flex flex-column">
 
             <h3>Über das Projekt</h3>
 
-            <p class="text-justify">
-                Open Legal Data ist ein nicht-gewinnorientiertes Projekt zur Förderung des freien Zugang zu juristischen Daten.
-                Unser Hauptanliegen ist es technische Mittel zur Verarbeitung und Analyse von juristischen Inhalten,
-                    insbesondere Rechtsprechung und Rechtsnormen, zur Verfügung zu stellen.
-                Durch das Zugänglichmachen mit Hilfe von <a href="/pages/api/">APIs</a> oder
-                    das Veröffentlichen von Datensätzen soll der Umgang mit Rechtsthemen für juristische Laien erleichtert werden.
-                Mit unserer Plattform richten wir uns in erster Linie an technisch versiert AktivistenInnen, JournalistenInnen und WissenschaftlerInnen.
+            <p>
+                Open Legal Data ist ein nicht gewinnorientiertes Projekt zur Förderung des freien Zugangs zu
+                juristischen Daten. Unser Hauptanliegen ist es, technische Mittel zur Verarbeitung und Analyse von
+                juristischen Inhalten, insbesondere Rechtsprechung und Rechtsnormen, zur Verfügung zu stellen.
+                Durch das Zugänglichmachen mit Hilfe von <a href="{{ api_page_url }}">APIs</a> und das
+                Veröffentlichen von Datensätzen soll der Umgang mit Rechtsthemen für juristische Laien erleichtert
+                werden. Mit unserer Plattform richten wir uns in erster Linie an technisch versierte Aktivist*innen,
+                Journalist*innen und Wissenschaftler*innen.
             </p>
-            <p class="text-jusity">
-                Open Legal Data verpflichtet sich mit diesem Projekt den Prinzipien der <a href="https://opendefinition.org/od/2.1/en/">Open Data Bewegung</a>
-                und der Erklärung des <a href="http://www.fatlm.org/declaration/">Free Access To Law Movements</a>.
-                Auf unserer <a href="//openlegaldata.io/about">englischen Seite</a> findet ihr weitere Informationen über das Projekt.
+            <p>
+                Open Legal Data verpflichtet sich mit diesem Projekt den Prinzipien der
+                <a href="https://opendefinition.org/od/2.1/en/">Open-Data-Bewegung</a>
+                und der Erklärung des <a href="http://www.fatlm.org/declaration/">Free Access to Law Movement</a>.
+                Auf unserer <a href="//openlegaldata.io/about">englischen Seite</a> findest du weitere
+                Informationen über das Projekt.
             </p>
 
         </div>
-        <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
+        <div class="col-12 col-lg-4 p-4 p-lg-5 bg-light border border-white d-flex flex-column">
 
             <h3>{% trans 'Laws' %}</h3>
 
@@ -122,28 +142,36 @@
                 {% endfor %}
             </table>
 
-            <p class="text-center">
-                <a class="btn btn-outline-primary" href="{% url 'laws:index' %}">{% trans "View all laws" %}</a>
-            </p>
+            <div class="homepage-actions mt-auto">
+                <div class="d-flex flex-wrap justify-content-lg-center mb-n2">
+                    <a class="btn btn-outline-primary mb-2" href="{% url 'laws:index' %}">{% trans "View all laws" %}</a>
+                </div>
+            </div>
 
         </div>
-        <div class="col-12 col-md-4 p-3 p-md-5 bg-light border border-white">
+        <div class="col-12 col-lg-4 p-4 p-lg-5 bg-light border border-white d-flex flex-column">
 
-            <h3>Data Dumps</h3>
+            <h3>Datensätze</h3>
 
-            <p class="text-justify">
-                Für die Analyse und wissenschaftliche Nutzung bieten wir alle Daten auch als sogenannten Data Dump oder Bulk Download an, d.h., es können alle Inhalten als Datensatz heruntergelanden werden ohne jedes Dokument einzeln anzufragen.
-                Diese Data Dumps können über <a href="https://huggingface.co/openlegaldata">Huggingface</a> geladen werden.
+            <p>
+                Für Analysen, Forschung und Machine Learning gibt es alle Urteile und Gesetze auch als kompletten
+                Datensatz zum Download, ohne jedes Dokument einzeln abzurufen. Die Datensätze liegen auf
+                <a href="https://huggingface.co/openlegaldata">Hugging Face</a> und stehen unter der
+                <a href="https://opendatacommons.org/licenses/odbl/1-0/">Open Database License (ODbL)</a>.
             </p>
 
-            <p class="text-justify">
-                Zum Erstellen und Verarbeiten der Data Dumps gibt es das <a href="https://github.com/openlegaldata/oldp-toolkit">OLDP Toolkit</a>.
+            <p>
+                Zum Erstellen und Verarbeiten der Datensätze gibt es das
+                <a href="https://github.com/openlegaldata/oldp-toolkit">OLDP Toolkit</a>.
             </p>
-                            
-            <hr class="half-rule">
 
-            <a class="btn btn-outline-primary" href="https://huggingface.co/datasets/openlegaldata/">Huggingface</a>
-
+            <div class="homepage-actions mt-auto">
+                <hr class="half-rule">
+                <div class="d-flex flex-wrap mr-n2 mb-n2">
+                    <a class="btn btn-outline-primary mr-2 mb-2" href="https://huggingface.co/openlegaldata">Hugging Face</a>
+                    <a class="btn btn-outline-primary mr-2 mb-2" href="{{ api_page_url }}#daten">Übersicht</a>
+                </div>
+            </div>
 
         </div>
     </div>

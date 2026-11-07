@@ -13,8 +13,8 @@
             <li><a href="{% url 'markdown_page' slug='privacy' %}">{% trans 'Privacy' %}</a></li>
             <li><a href="{% url 'markdown_page' slug='terms' %}">{% trans 'AGB' %}</a></li>
             <li><a href="{% report_content_url %}" rel="nofollow">{% trans 'Report content' %}</a></li>
-            <li><a href="{% url 'flatpages' url='/api/' %}">API</a></li>
-            <li><a href="{{ site_mcp_docs_url }}" target="_blank" rel="noopener">MCP</a></li>
+            <li><a href="{% url 'markdown_page' slug='api' %}">API</a></li>
+            <li><a href="{{ site_mcp_docs_url }}">MCP</a></li>
             <li><a href="//openlegaldata.io/about">Über uns (Englisch)</a></li>
             <li><a href="{{ site_blog_url }}">Blog</a></li>
 
