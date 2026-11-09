@@ -45,6 +45,20 @@ python manage.py runserver
 By loading another settings file, we basically just tell Django to use assets (templates, images, ...) from the German theme if they exist.
 As a result, we can modify the layout etc. without touching the original OLDP code.
 
+## MCP Registry listing
+
+The German deployment is listed in the official MCP Registry as
+`io.openlegaldata/de`. Name, title and description are set in
+`src/oldp_de/settings.py` (`MCP_REGISTRY_*`); version and URLs come from OLDP.
+Generate `server.json` from the OLDP directory and publish it with
+`mcp-publisher` (see OLDP's `docs/mcp.md`, "Official MCP Registry"):
+
+```bash
+export DJANGO_SETTINGS_MODULE=oldp_de.settings DJANGO_CONFIGURATION=ProdDEConfiguration
+python manage.py mcp_server_json --output server.json
+mcp-publisher publish server.json
+```
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
